@@ -1,0 +1,42 @@
+# depslib dependency file v1.0
+1652962144 source:e:\codeblocks\code\getawaycursor\entity.cpp
+	"entity.h"
+
+1652962148 e:\codeblocks\code\getawaycursor\entity.h
+	<SDL.h>
+	<iostream>
+	<vector>
+
+1652975475 source:e:\codeblocks\code\getawaycursor\main.cpp
+	<iostream>
+	<vector>
+	<random>
+	"RenderWindow.h"
+	"player.h"
+
+1652970144 source:e:\codeblocks\code\getawaycursor\renderwindow.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<iostream>
+	"RenderWindow.h"
+	"entity.h"
+
+1652884588 e:\codeblocks\code\getawaycursor\renderwindow.h
+	"entity.h"
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<iostream>
+
+1652974427 e:\codeblocks\code\getawaycursor\player.h
+	<SDL.h>
+	<SDL_image.h>
+	<string.h>
+	"entity.h"
+	"RenderWindow.h"
+
+1652974371 source:e:\codeblocks\code\getawaycursor\player.cpp
+	"player.h"
+	<math.h>
+
