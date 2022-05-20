@@ -41,6 +41,14 @@ public:
     {
         timer = t;
     }
+    void setScore(int doublescore)
+    {
+        score = doublescore * 2;
+    }
+    int getTimer()
+    {
+        return timer;
+    }
 private:
     float velocityX , velocityY;
     bool grounded;

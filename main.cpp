@@ -36,8 +36,10 @@ int main(int argc , char* argv[])
     SDL_Texture *groundTex = renderWindow.loadTexture("Image/base_resize_01.png");
     SDL_Texture *backgroundTex = renderWindow.loadTexture("Image/background.png");
     SDL_Texture *spriteTexture = renderWindow.loadTexture("Image/pipe-green-1.png");
+    SDL_Texture *spriteTexture01 = renderWindow.loadTexture("Image/pipe-green.png");
     SDL_Texture *lifeTexture = renderWindow.loadTexture("Image/life_resize.png");
     SDL_Texture *appleTexture = renderWindow.loadTexture("Image/apple-removebg-preview.png");
+    SDL_Texture *bananaTexture = renderWindow.loadTexture("Image/banana.png");
     Player player(0 , 0 , playerTex);
 
     Entity ground(0 , SCREEN_HEIGHT - 133 , groundTex);
@@ -47,10 +49,11 @@ int main(int argc , char* argv[])
                         Entity(100 , 0 , lifeTexture)};
     vector<Entity> sprites ;
     vector<Entity> apples;
+    vector<Entity> bananas;
     int i = 0;
     int number = 3;
     int j = 0;
-
+    int k = 0;
     while(gameRunning)
     {
         while(SDL_PollEvent(&event))
@@ -95,13 +98,19 @@ int main(int argc , char* argv[])
         }
         else
         {
+             Entity apple(300 + j , SCREEN_HEIGHT - 133 - 80 - 30 , appleTexture);
+             apples.push_back(apple);
 
-         Entity apple(300 + j , SCREEN_HEIGHT - 133 - 80 - 30 , appleTexture);
-         apples.push_back(apple);
+            Entity sprite(600 + i , SCREEN_HEIGHT - 133 - 80 , spriteTexture);
+            sprites.push_back(sprite);
 
-         Entity sprite(600 + i , SCREEN_HEIGHT - 133 - 80 , spriteTexture);
-         sprites.push_back(sprite);
 
+            Entity spriteShort(900 + i * 5  ,SCREEN_HEIGHT - 133 - 50 ,spriteTexture01);
+            sprites.push_back(spriteShort);
+
+
+         Entity banana( 1000 + k , SCREEN_HEIGHT - 133 - 80 - 30 - 90 , bananaTexture);
+         bananas.push_back(banana);
 
          SDL_Rect playerRect;
          playerRect.x = player.getX();
@@ -146,6 +155,37 @@ int main(int argc , char* argv[])
             }
 
         }
+
+        // banana
+         for(int i = 0 ; i < bananas.size() ; i++)
+        {
+            auto iter1 = begin(bananas);
+            SDL_Rect bananaRect;
+            bananaRect.x = bananas[i].getX();
+            bananaRect.y = bananas[i].getY();
+            bananaRect.w = 30 ;
+            bananaRect.h = 30 ;
+
+            renderWindow.render(bananas[i]);
+            bananas[i].moveLeft();
+            if(player.checkCollision(playerRect , bananaRect  , res))
+            {
+                player.setTimer(player.getTimer() * 2);
+                bananas.erase(iter1);
+            }
+            if(bananas[i].getX() < 0 && iter1 != end(bananas))
+            {
+                bananas.erase(iter1);
+            }
+            else
+            {
+                iter1 ++;
+            }
+
+        }
+
+
+        // hearts
         for(int i = 0 ; i < number ; i++)
         {
             renderWindow.render(hearts[i]);
@@ -213,6 +253,7 @@ int main(int argc , char* argv[])
         renderWindow.display();
         i += random(200 , 300);
         j += random(300 , 400);
+        k += random(900 , 1000);
         }
     }
 
